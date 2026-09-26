@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#176B5B">
+  <meta name="description" content="날짜별 여행 일정과 활동 정보를 정리하는 여행 플래너">
+  <title>여행한칸 · 여행 일정 플래너</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="여행한칸 홈">
+        <span class="brand-mark">여</span>
+        <span><strong>여행한칸</strong><small>TRIP PLANNER</small></span>
+      </a>
+
+      <nav class="side-nav" aria-label="주 메뉴">
+        <button class="nav-item active"><span>⌁</span> 일정표</button>
+        <button class="nav-item" id="openTripManager"><span>✦</span> 여행 관리</button>
+      </nav>
+
+      <div class="sidebar-note">
+        <span class="note-icon">☀</span>
+        <strong>여행 준비 팁</strong>
+        <p>항공편, 예약 링크와 예상 비용까지 한곳에 모아 두세요.</p>
+      </div>
+      <p class="storage-note">이 기기에 자동 저장됩니다</p>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div class="trip-picker-wrap">
+          <label for="tripPicker">현재 여행</label>
+          <div class="trip-picker-row">
+            <select id="tripPicker" aria-label="여행 선택"></select>
+            <button class="icon-button" id="newTripButton" title="새 여행 만들기" aria-label="새 여행 만들기">＋</button>
+          </div>
+        </div>
+        <div class="header-actions">
+          <button class="ghost-button" id="notificationButton">♧ 알림 허용</button>
+          <button class="primary-button" id="headerAddButton">＋ 계획 추가</button>
+        </div>
+      </header>
+
+      <section class="hero" id="tripHero">
+        <div>
+          <p class="eyebrow">MY JOURNEY</p>
+          <h1 id="tripTitle">여행을 만들어 주세요</h1>
+          <p class="trip-period" id="tripPeriod">여행 기간을 지정하면 날짜별 계획을 만들 수 있어요.</p>
+        </div>
+        <div class="trip-summary">
+          <div><strong id="summaryDays">0</strong><span>여행 일수</span></div>
+          <div><strong id="summaryPlans">0</strong><span>전체 활동</span></div>
+          <div><strong id="summaryBudget">₩0</strong><span>예상 비용</span></div>
+        </div>
+      </section>
+
+      <section class="date-section">
+        <button class="scroll-arrow left" id="datePrev" aria-label="이전 날짜">‹</button>
+        <div class="date-strip" id="dateStrip"></div>
+        <button class="scroll-arrow right" id="dateNext" aria-label="다음 날짜">›</button>
+      </section>
+
+      <section class="schedule-section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow" id="selectedDateCaption">SELECT A DAY</p>
+            <h2 id="selectedDateTitle">날짜를 선택하세요</h2>
+          </div>
+          <button class="outline-button" id="dayAddButton">＋ 이 날짜에 계획 추가</button>
+        </div>
+
+        <div class="timeline" id="timeline"></div>
+
+        <button class="add-next-card" id="addNextButton">
+          <span class="add-circle">＋</span>
+          <span><strong>다음 활동 추가하기</strong><small>교통, 식사, 관광, 숙소 등 여행 계획을 이어서 입력하세요.</small></span>
+        </button>
+      </section>
+    </main>
+  </div>
+
+  <dialog id="tripDialog" class="modal compact-modal">
+    <form id="tripForm" method="dialog">
+      <div class="modal-head">
+        <div><p class="eyebrow">NEW JOURNEY</p><h2 id="tripDialogTitle">새 여행 만들기</h2></div>
+        <button type="button" class="close-button" data-close="tripDialog">×</button>
+      </div>
+      <div class="field full">
+        <label for="tripName">여행 이름</label>
+        <input id="tripName" required maxlength="50" placeholder="예: 3박 4일 도쿄 여행">
+      </div>
+      <div class="field-grid two">
+        <div class="field"><label for="tripStart">시작 날짜</label><input id="tripStart" type="date" required></div>
+        <div class="field"><label for="tripEnd">종료 날짜</label><input id="tripEnd" type="date" required></div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="danger-text" id="deleteTripButton">여행 삭제</button>
+        <span></span>
+        <button type="button" class="ghost-button" data-close="tripDialog">취소</button>
+        <button type="submit" class="primary-button">저장</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="activityDialog" class="modal activity-modal">
+    <form id="activityForm" method="dialog">
+      <div class="modal-head sticky">
+        <div><p class="eyebrow">ADD TO ITINERARY</p><h2 id="activityDialogTitle">계획 추가</h2></div>
+        <button type="button" class="close-button" data-close="activityDialog">×</button>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title"><span>1</span><div><strong>어떤 활동인가요?</strong><small>선택한 활동에 맞는 입력 항목을 보여드려요.</small></div></div>
+        <div class="category-grid" id="categoryGrid"></div>
+      </div>
+
+      <div class="form-section" id="detailSection">
+        <div class="form-section-title"><span>2</span><div><strong>활동 정보</strong><small>예약 확인에 필요한 정보를 입력하세요.</small></div></div>
+        <div class="field full">
+          <label for="activityTitle">계획 이름</label>
+          <input id="activityTitle" required maxlength="80" placeholder="예: 나리타 공항 도착">
+        </div>
+        <div id="dynamicFields" class="field-grid two"></div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title"><span>3</span><div><strong>시간과 비용</strong><small>하루 종일 일정도 설정할 수 있어요.</small></div></div>
+        <div class="all-day-row"><label><input id="allDay" type="checkbox"> 하루 종일</label></div>
+        <div class="field-grid three">
+          <div class="field"><label for="activityDate">날짜</label><input id="activityDate" type="date" required></div>
+          <div class="field"><label for="startTime">시작</label><input id="startTime" type="time" value="09:00"></div>
+          <div class="field"><label for="endTime">종료</label><input id="endTime" type="time" value="10:00"></div>
+        </div>
+        <div class="field-grid two">
+          <div class="field amount-field">
+            <label for="amount">예상 금액</label>
+            <div><select id="currency"><option value="KRW">₩ KRW</option><option value="JPY">¥ JPY</option><option value="USD">$ USD</option><option value="EUR">€ EUR</option></select><input id="amount" type="number" min="0" step="1" placeholder="0"></div>
+          </div>
+          <div class="field"><label for="reminder">알림</label><select id="reminder"><option value="none">알림 없음</option><option value="0">시작 시간</option><option value="10">10분 전</option><option value="30">30분 전</option><option value="60">1시간 전</option></select></div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-section-title"><span>4</span><div><strong>메모와 첨부</strong><small>사진 또는 예약 링크를 함께 보관하세요.</small></div></div>
+        <div class="field full"><label for="memo">메모</label><textarea id="memo" rows="4" maxlength="1000" placeholder="예약 번호, 준비물, 주문할 메뉴 등을 적어 두세요."></textarea></div>
+        <div class="attachment-grid">
+          <label class="upload-box" for="photoInput"><span>▧</span><strong>사진 업로드</strong><small>여러 장 선택 가능</small><input id="photoInput" type="file" accept="image/*" multiple hidden></label>
+          <div class="link-box"><label for="linkInput">링크 추가</label><div><input id="linkInput" type="url" placeholder="https://"><button type="button" id="addLinkButton">추가</button></div></div>
+        </div>
+        <div class="attachment-preview" id="attachmentPreview"></div>
+      </div>
+
+      <div class="modal-actions sticky-bottom">
+        <button type="button" class="danger-text" id="deleteActivityButton">활동 삭제</button>
+        <span></span>
+        <button type="button" class="ghost-button" data-close="activityDialog">취소</button>
+        <button type="submit" class="primary-button">저장하고 일정에 추가</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="mapDialog" class="modal map-modal">
+    <div class="modal-head">
+      <div><p class="eyebrow">PICK A PLACE</p><h2>지도에서 장소 선택</h2></div>
+      <button type="button" class="close-button" data-close="mapDialog">×</button>
+    </div>
+    <div class="map-search-row">
+      <select id="placeType"><option value="restaurant">일반 음식점</option><option value="bar">술집·바</option><option value="cafe">카페</option><option value="fast_food">패스트푸드</option></select>
+      <input id="mapSearchInput" placeholder="지역이나 음식점 이름 검색">
+      <button class="primary-button" id="mapSearchButton">검색</button>
+    </div>
+    <div class="map-layout">
+      <div id="map"></div>
+      <div class="map-results" id="mapResults"><p>검색하거나 지도를 눌러 위치를 선택하세요.</p></div>
+    </div>
+    <div class="map-selection"><div><small>선택한 장소</small><strong id="selectedPlaceText">아직 선택하지 않았습니다</strong></div><button class="primary-button" id="confirmPlaceButton" disabled>이 장소 사용</button></div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="app.js"></script>
+</body>
+</html>

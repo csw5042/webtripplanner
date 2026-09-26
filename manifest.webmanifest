@@ -1,0 +1,18 @@
+{
+  "name": "여행한칸 - 여행 일정 플래너",
+  "short_name": "여행한칸",
+  "description": "날짜별 여행 일정과 예약 정보를 한곳에 정리하세요.",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f4f2eb",
+  "theme_color": "#176b5b",
+  "lang": "ko",
+  "icons": [
+    {
+      "src": "assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
