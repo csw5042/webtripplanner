@@ -1,5 +1,10 @@
-const CACHE_NAME = 'trip-planner-v1';
-const APP_SHELL = ['./', './index.html', './styles.css', './app.js', './manifest.webmanifest', './assets/icon.svg'];
+const CACHE_NAME = 'trip-planner-v2';
+const APP_SHELL = [
+  './', './index.html', './styles.css', './app.js', './manifest.webmanifest', './assets/icon.svg',
+  './assets/tokyo/itinerary-final.png', './assets/tokyo/restaurants-map.png',
+  './assets/tokyo/convenience-guide.png', './assets/tokyo/supermarket-guide.png',
+  './assets/tokyo/tokyo-food-notes.txt'
+];
 
 self.addEventListener('install', event => {
   event.waitUntil(caches.open(CACHE_NAME).then(cache => cache.addAll(APP_SHELL)));

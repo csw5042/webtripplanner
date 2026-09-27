@@ -1,7 +1,7 @@
 {
   "name": "여행한칸 - 여행 일정 플래너",
   "short_name": "여행한칸",
-  "description": "날짜별 여행 일정과 예약 정보를 한곳에 정리하세요.",
+  "description": "도쿄 일정, 맛집, 편의점과 마트 먹킷리스트를 한곳에 정리하세요.",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f4f2eb",

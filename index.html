@@ -20,7 +20,8 @@
       </a>
 
       <nav class="side-nav" aria-label="주 메뉴">
-        <button class="nav-item active"><span>⌁</span> 일정표</button>
+        <button class="nav-item active" id="showPlannerView"><span>⌁</span> 일정표</button>
+        <button class="nav-item" id="showGuideView"><span>◉</span> 도쿄 가이드</button>
         <button class="nav-item" id="openTripManager"><span>✦</span> 여행 관리</button>
       </nav>
 
@@ -33,6 +34,7 @@
     </aside>
 
     <main class="main-content">
+      <div id="plannerView">
       <header class="topbar">
         <div class="trip-picker-wrap">
           <label for="tripPicker">현재 여행</label>
@@ -82,8 +84,86 @@
           <span><strong>다음 활동 추가하기</strong><small>교통, 식사, 관광, 숙소 등 여행 계획을 이어서 입력하세요.</small></span>
         </button>
       </section>
+      </div>
+
+      <section class="guide-view" id="guideView" hidden>
+        <header class="guide-hero">
+          <div>
+            <p class="eyebrow">TOKYO 5 NIGHTS · 6 DAYS</p>
+            <h1>먹고, 걷고, 다시 먹는 도쿄</h1>
+            <p>2026.10.11–10.16 · 동네친구 강나미와 추성훈 채널의 추천을 여행 동선에 맞춰 정리했습니다.</p>
+          </div>
+          <button class="guide-import-button" id="importTokyoTrip"><span>＋</span><strong>이 일정을 내 일정표에 담기</strong><small>기존 일정은 그대로 유지됩니다</small></button>
+        </header>
+
+        <nav class="guide-tabs" aria-label="도쿄 가이드 바로가기">
+          <a href="#guide-itinerary">일정</a>
+          <a href="#guide-restaurants">맛집</a>
+          <a href="#guide-convenience">편의점</a>
+          <a href="#guide-market">마트</a>
+          <a href="#guide-sources">영상 출처</a>
+        </nav>
+
+        <div class="guide-content">
+          <section class="guide-section" id="guide-itinerary">
+            <div class="guide-heading"><div><span class="section-number">01</span><p class="eyebrow">ITINERARY</p><h2>5박 6일 최종 일정</h2></div><p>우에노 숙소를 중심으로 이동을 묶고, 일정 주변 추천 맛집을 반영했습니다.</p></div>
+            <button class="visual-card itinerary-visual" data-lightbox="assets/tokyo/itinerary-final.png" aria-label="도쿄 5박 6일 일정 크게 보기">
+              <img src="assets/tokyo/itinerary-final.png" alt="도쿄 5박 6일 최종 추천 일정 지도" loading="lazy">
+              <span>눌러서 크게 보기</span>
+            </button>
+            <div class="trip-notes-grid">
+              <article><span>✈</span><div><strong>입국일 · 10월 11일</strong><p>나리타 도착 후 스카이라이너로 게이세이 우에노 이동. 입국 수속을 고려해 12시대 열차가 여유롭습니다.</p></div></article>
+              <article><span>🚆</span><div><strong>공항 교통</strong><p>나리타공항 → 게이세이 우에노 약 41분. 전 좌석 지정석이며 공식 사이트에서 열차와 좌석을 선택합니다.</p></div></article>
+              <article><span>💳</span><div><strong>도심 교통</strong><p>Suica/PASMO 충전식 IC카드 사용. 이동이 많은 10/12–10/14는 Tokyo Subway Ticket 72시간권도 비교하세요.</p></div></article>
+            </div>
+          </section>
+
+          <section class="guide-section" id="guide-restaurants">
+            <div class="guide-heading"><div><span class="section-number">02</span><p class="eyebrow">RESTAURANTS</p><h2>동선에 넣기 좋은 도쿄 맛집</h2></div><p>주소, 대표 음식과 맛 평가를 한 번에 확인하고 지도에서 바로 열 수 있습니다.</p></div>
+            <button class="visual-card wide-visual" data-lightbox="assets/tokyo/restaurants-map.png" aria-label="강나미 추성훈 도쿄 맛집 지도 크게 보기">
+              <img src="assets/tokyo/restaurants-map.png" alt="강나미 추성훈 도쿄 맛집 지도" loading="lazy">
+              <span>맛집 지도 크게 보기</span>
+            </button>
+            <div class="filter-bar">
+              <div class="filter-chips" id="restaurantFilters"></div>
+              <label class="guide-search"><span>⌕</span><input id="restaurantSearch" type="search" placeholder="상호·지역·음식 검색"></label>
+            </div>
+            <div class="restaurant-grid" id="restaurantGrid"></div>
+          </section>
+
+          <section class="guide-section" id="guide-convenience">
+            <div class="guide-heading"><div><span class="section-number">03</span><p class="eyebrow">CONVENIENCE STORE</p><h2>편의점별 먹킷리스트</h2></div><p>같은 상품도 시즌과 점포에 따라 재고가 다를 수 있으니 비슷한 포장과 제품명을 함께 확인하세요.</p></div>
+            <button class="visual-card wide-visual" data-lightbox="assets/tokyo/convenience-guide.png" aria-label="일본 편의점 음식 가이드 크게 보기">
+              <img src="assets/tokyo/convenience-guide.png" alt="추성훈 일본 편의점 음식 가이드" loading="lazy">
+              <span>편의점 가이드 크게 보기</span>
+            </button>
+            <div class="food-columns" id="convenienceGrid"></div>
+          </section>
+
+          <section class="guide-section" id="guide-market">
+            <div class="guide-heading"><div><span class="section-number">04</span><p class="eyebrow">SUPERMARKET</p><h2>마트에서 찾아볼 음식</h2></div><p>특정 체인보다 일반 슈퍼마켓에서 찾기 쉬운 음식 종류와 강나미 추천 우선순위 중심입니다.</p></div>
+            <button class="visual-card wide-visual" data-lightbox="assets/tokyo/supermarket-guide.png" aria-label="일본 마트 음식 가이드 크게 보기">
+              <img src="assets/tokyo/supermarket-guide.png" alt="강나미 일본 마트 음식 가이드" loading="lazy">
+              <span>마트 가이드 크게 보기</span>
+            </button>
+            <div class="market-picks" id="marketPriority"></div>
+            <div class="food-columns market-columns" id="marketGrid"></div>
+          </section>
+
+          <section class="guide-section source-section" id="guide-sources">
+            <div class="guide-heading"><div><span class="section-number">05</span><p class="eyebrow">WATCH &amp; CHECK</p><h2>영상 출처와 전체 메모</h2></div><p>촬영 당시 기준 정보이므로 방문 전 영업시간과 판매 여부를 다시 확인하세요.</p></div>
+            <div class="source-grid" id="sourceGrid"></div>
+            <a class="memo-download" href="assets/tokyo/tokyo-food-notes.txt" download><span>↓</span><div><strong>전체 조사 메모 내려받기</strong><small>맛집 13곳, 편의점·마트 전 품목 상세 설명</small></div></a>
+          </section>
+        </div>
+      </section>
     </main>
   </div>
+
+  <dialog id="imageDialog" class="image-dialog">
+    <button class="close-button" id="closeImageDialog" aria-label="이미지 닫기">×</button>
+    <img id="lightboxImage" alt="확대 이미지">
+  </dialog>
 
   <dialog id="tripDialog" class="modal compact-modal">
     <form id="tripForm" method="dialog">
