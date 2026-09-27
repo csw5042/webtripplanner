@@ -1,4 +1,4 @@
-const CACHE_NAME = 'trip-planner-v3';
+const CACHE_NAME = 'trip-planner-v4';
 const APP_SHELL = [
   './', './index.html', './styles.css', './app.js', './manifest.webmanifest', './assets/icon.svg',
   './assets/tokyo/itinerary-final.png', './assets/tokyo/restaurants-map.png',

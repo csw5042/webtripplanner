@@ -83,6 +83,52 @@ const tokyoRestaurants = [
   { area:'아사쿠사', name:'우시미츠 아사쿠사', channel:'동네친구 강나미', food:'소고기 히츠마부시', pick:'고기 히츠마부시', taste:'고기와 밥으로 시작해 산초를 더하거나 육수를 부어 오차즈케로 마무리합니다. 진한 고기 맛을 여러 방식으로 즐길 수 있습니다.', address:'1-2-10 Hanakawado, Taito City, Tokyo' }
 ];
 
+const transportDays = [
+  { day:'DAY 1', date:'10/11 · 일', title:'나리타 → 우에노 · 긴자', note:'입국일은 스카이라이너 예약편 우선', routes:[
+    ['12:19 전후','나리타공항 → 게이세이 우에노','게이세이 스카이라이너 · 전 좌석 지정','약 41–51분','¥2,580','티켓에 적힌 T1/T2·3 승차역과 출발 시각 확인'],
+    ['도착 후','게이세이 우에노 → 토세이 호텔 코코네 우에노','도보','약 7–10분','무료','JR 우에노역 불忍口 방향으로 이동'],
+    ['오후','호텔 → 아메요코 → 우에노공원','도보','각 5–12분','무료','아메요코는 오카치마치 방향, 공원은 불忍口 방향'],
+    ['저녁','우에노 → 긴자','도쿄메트로 긴자선 G16 → G09 · 직통','12분','¥178','긴자 식사 후 같은 노선으로 우에노 복귀']
+  ]},
+  { day:'DAY 2', date:'10/12 · 월', title:'하라주쿠 · 시부야', note:'도쿄메트로 중심, 환승 1회 이하', routes:[
+    ['08:20','우에노 → 메이지진구마에〈하라주쿠〉','긴자선 G16→G02 오모테산도 · 치요다선 C04→C03','약 32분','¥209','메이지신궁은 2번 출구 방향'],
+    ['오전','메이지신궁 → 오모테산도 · 캣스트리트','도보','약 10–20분','무료','다케시타도리 대신 캣스트리트 남행'],
+    ['12:50','오모테산도 → 국립신미술관','치요다선 C04 → 노기자카 C05','2분+도보','¥178','6번 출구가 미술관과 직접 연결'],
+    ['15:50','노기자카 → 시부야','치요다선 C05→C04 · 긴자선/한조몬선 → 시부야','약 12분','¥178','하치코 개찰구·스크램블 방향'],
+    ['21:00','시부야 → 우에노','긴자선 G01 → G16 · 직통','28분','¥209','막차 걱정 없는 시간대에 복귀']
+  ]},
+  { day:'DAY 3', date:'10/13 · 화', title:'츠키지 · 긴자 · teamLab · 도쿄역', note:'히비야선이 하루 동선의 중심', routes:[
+    ['07:30','우에노 → 츠키지','히비야선 H18 → H11 · 직통','약 20분','¥209','1·2번 출구에서 장외시장 도보'],
+    ['10:20','츠키지 → 긴자','도보','약 15분','무료','하루미도리 방면으로 이동'],
+    ['13:20','긴자 → teamLab Borderless','히비야선 H09 → 가미야초 H05','8분+도보 2분','¥178','5번 출구, 지하통로로 Garden Plaza B B1'],
+    ['17:00','가미야초 → 도쿄역','히비야선→가스미가세키 · 마루노우치선 M15→M17','약 15분','¥178','마루노우치 중앙구 방향'],
+    ['20:30','도쿄역 → 우에노','JR 야마노테선 또는 게이힌토호쿠선','약 8분','약 ¥170','JR이 지하철 환승보다 빠름']
+  ]},
+  { day:'DAY 4', date:'10/14 · 수', title:'산토리 공장 · 신주쿠', note:'공장 투어는 무료 셔틀 시간 엄수', routes:[
+    ['08:10 권장','우에노 → 신주쿠','JR 야마노테선','약 25분','약 ¥210','게이오선 환승 표지 따라 서쪽 이동'],
+    ['08:50 전후','게이오 신주쿠 → 분배가와라','게이오선 특급 KO01 → KO25','약 25–30분','¥314','특급·급행 모두 정차'],
+    ['09:30','분배가와라 → 산토리 무사시노 공장','무료 셔틀버스','10분','무료','10:30 투어라면 10:20편보다 09:30편이 안전'],
+    ['11:50 예상','공장 → 분배가와라','무료 셔틀버스','10분','무료','투어 종료 시 안내에 따라 복귀편 확인'],
+    ['12:10 이후','분배가와라 → 신주쿠','게이오선 특급','약 25–30분','¥314','신주쿠 도착 후 점심'],
+    ['오후','신주쿠 → 신주쿠교엔 → 도쿄도청 → 가부키초','도보 중심 · 필요 시 마루노우치선 1–2정거장','각 15–25분','0–¥178','교엔 신주쿠문→도청→가부키초 순서'],
+    ['21:30','신주쿠 → 우에노','JR 야마노테선','약 25분','약 ¥210','JR 신주쿠 동쪽 개찰구에서 승차']
+  ]},
+  { day:'DAY 5', date:'10/15 · 목', title:'아사쿠사 · 스카이트리 · 아키하바라', note:'짧은 구간은 도보와 전철을 섞기', routes:[
+    ['08:00','우에노 → 아사쿠사','긴자선 G16 → G19 · 직통','5분','¥178','1번 출구에서 센소지·가미나리몬'],
+    ['오전','센소지 → 나카미세 → 우시미츠','도보','각 3–12분','무료','아사쿠사 권역은 전부 도보'],
+    ['13:00','아사쿠사 → 도쿄 스카이트리','도부 스카이트리라인','3분','약 ¥170','또는 스미다강 따라 도보 약 20분'],
+    ['15:40','오시아게 → 아키하바라','한조몬선 Z14→긴시초 Z13 · JR 소부선 환승','약 18분','약 ¥350','JR 아키하바라 전기거리 출구'],
+    ['20:30','아키하바라 → 우에노','JR 야마노테선/게이힌토호쿠선','4분','약 ¥150','거리 가까우면 도보 약 20분도 가능']
+  ]},
+  { day:'DAY 6', date:'10/16 · 금', title:'우에노 · 야나카 → 나리타', note:'19:55 비행기, 16:00 열차면 여유 충분', routes:[
+    ['오전','호텔 → 우에노공원','도보','약 10분','무료','짐은 호텔에 보관'],
+    ['선택','우에노 → 닛포리 · 야나카긴자','JR 야마노테선','4분+도보 5분','약 ¥150','야나카를 선택하면 왕복 약 ¥300'],
+    ['오후','우에노공원/야나카 → 아메요코 → 호텔','도보 또는 JR','10–25분','0–¥150','14:30까지 호텔에서 짐 회수'],
+    ['15:40 도착','호텔 → 게이세이 우에노','도보','약 7–10분','무료','출발 20분 전 역 도착 권장'],
+    ['16:00','게이세이 우에노 → 나리타공항','스카이라이너 63호','T2 16:41 · T1 16:44','¥2,580','비행 19:55, 공항 여유 약 3시간']
+  ]}
+];
+
 const convenienceFoods = [
   { store:'패밀리마트', note:'크림 디저트 강점', items:[['더블 크림 슈','생크림과 커스터드가 가득하지만 덜 느끼합니다. 얼리면 아이스크림 같은 식감.'],['단호박 몽블랑 푸딩','부드러운 무스 같은 식감과 자연스러운 단맛. 시즌 한정 가능.'],['더블 휘핑·커스터드 빵','폭신한 빵, 가벼운 휘핑과 진한 커스터드 조합.'],['유키미 다이후쿠','쫀득한 찹쌀떡 안 바닐라 아이스크림.'],['크림&커피 젤리','쌉싸름한 커피 젤리와 달콤한 우유 크림의 균형.']] },
   { store:'로손', note:'롤케이크와 핫스낵', items:[['모찌 식감 롤','쫀득하고 부드러운 빵과 진한 우유 크림.'],['가라아게군','따뜻하고 짭짤한 한입 닭튀김. 오리지널·레드·치즈 등.'],['와라비모찌','매우 부드러운 떡과 콩가루·흑당의 고소한 단맛.'],['자가리코','단단하고 바삭한 감자 스틱. 이동 간식이나 맥주 안주.']] },
@@ -99,6 +145,10 @@ const marketGroups = [
 ];
 
 const guideSources = [
+  ['교통 공식','게이세이 스카이라이너 시간표','https://new-www.keisei.co.jp/keisei/tetudou/skyliner/jp/traffic/skyliner_timetable.php'],
+  ['교통 공식','Tokyo Subway Ticket 안내','https://www.tokyometro.jp/ticket/value/travel/index.html'],
+  ['교통 공식','산토리 무사시노 공장 셔틀버스','https://www.suntory.co.jp/factory/musashino/access/'],
+  ['교통 공식','teamLab Borderless 오시는 길','https://www.teamlab.art/e/tokyo/'],
   ['동네친구 강나미','도쿄 현지인 맛집','https://menuham.site/course/33'], ['동네친구 강나미','대성과 도쿄 스시 투어','https://menuham.site/course/20'],
   ['동네친구 강나미','이상화와 도쿄 디저트 투어','https://menuham.site/course/19'], ['동네친구 강나미','일본 마트 도시락 17종','https://www.youtube.com/watch?v=0mPjZA4Jvzw'],
   ['동네친구 강나미','일본 마트 우동','https://www.youtube.com/watch?v=Ul_npvOuKpA'], ['동네친구 강나미','일본 마트 과자','https://www.youtube.com/watch?v=UfLDYel8EhY'],
@@ -514,10 +564,15 @@ function renderGuide() {
   $('#restaurantFilters').innerHTML = areas.map(area => `<button class="filter-chip ${area === restaurantFilter ? 'active' : ''}" data-area="${area}">${area}</button>`).join('');
   renderRestaurantCards();
   $('#convenienceGrid').innerHTML = convenienceFoods.map(group => foodGroupHTML(group)).join('');
+  $('#transportGrid').innerHTML = transportDays.map(transportDayHTML).join('');
   const priorities = ['치킨난반','구운 연어 도시락','명란 파스타','가츠산도','훈와리메이진','나메라카 푸딩','군고구마+바닐라','혼쯔유 자루우동','런치팩 햄&마요','해피턴·간장 감자칩'];
   $('#marketPriority').innerHTML = priorities.map((item, index) => `<span class="market-pick"><b>${index + 1}</b>${item}</span>`).join('');
   $('#marketGrid').innerHTML = marketGroups.map(group => foodGroupHTML(group)).join('');
   $('#sourceGrid').innerHTML = guideSources.map(([channel, title, url]) => `<a class="source-card" href="${url}" target="_blank" rel="noopener"><div><strong>${escapeHTML(title)}</strong><small>${escapeHTML(channel)}</small></div><span>↗</span></a>`).join('');
+}
+
+function transportDayHTML(day) {
+  return `<article class="transport-day"><header><div><span>${escapeHTML(day.day)}</span><strong>${escapeHTML(day.date)}</strong></div><div><h3>${escapeHTML(day.title)}</h3><p>${escapeHTML(day.note)}</p></div></header><div class="route-list">${day.routes.map(route => `<div class="route-row"><time>${escapeHTML(route[0])}</time><span class="route-line"></span><div class="route-main"><strong>${escapeHTML(route[1])}</strong><p>${escapeHTML(route[2])}</p><small>${escapeHTML(route[5])}</small></div><div class="route-stats"><span>${escapeHTML(route[3])}</span><b>${escapeHTML(route[4])}</b></div></div>`).join('')}</div></article>`;
 }
 
 function foodGroupHTML(group) {

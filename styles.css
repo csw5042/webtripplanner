@@ -195,6 +195,39 @@ button { cursor: pointer; }
 .trip-notes-grid article > span { display: grid; place-items: center; flex: 0 0 38px; height: 38px; border-radius: 12px; background: var(--green-soft); }
 .trip-notes-grid strong { font-size: 13px; }
 .trip-notes-grid p { margin: 7px 0 0; color: var(--muted); font-size: 11px; line-height: 1.65; }
+.transport-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 14px; }
+.transport-summary article { display: flex; align-items: center; gap: 12px; padding: 17px; border: 1px solid #d9ded8; border-radius: 15px; background: rgba(255,255,255,.8); }
+.transport-summary article > span { display: grid; place-items: center; flex: 0 0 39px; height: 39px; border-radius: 12px; color: var(--green); background: var(--green-soft); font-size: 12px; font-weight: 900; }
+.transport-summary strong, .transport-summary p { display: block; }
+.transport-summary strong { font-size: 12px; }
+.transport-summary p { margin: 4px 0 0; color: var(--muted); font-size: 10px; line-height: 1.45; }
+.transport-alert { display: flex; align-items: center; gap: 18px; margin-bottom: 18px; padding: 15px 18px; border-radius: 14px; color: #5d4315; background: #fff1c9; }
+.transport-alert strong { flex: 0 0 auto; font-size: 11px; }
+.transport-alert p { margin: 0; font-size: 10px; line-height: 1.6; }
+.transport-grid { display: grid; gap: 16px; }
+.transport-day { overflow: hidden; border: 1px solid #dcd9d0; border-radius: 18px; background: rgba(255,255,255,.8); }
+.transport-day > header { display: grid; grid-template-columns: 120px 1fr; gap: 18px; align-items: center; padding: 18px 22px; color: white; background: #173d34; }
+.transport-day > header > div:first-child span, .transport-day > header > div:first-child strong { display: block; }
+.transport-day > header > div:first-child span { color: #f7c95c; font-family: Georgia, serif; font-size: 17px; font-style: italic; }
+.transport-day > header > div:first-child strong { margin-top: 4px; color: #c7ded8; font-size: 10px; }
+.transport-day h3 { margin: 0; font-size: 15px; }
+.transport-day header p { margin: 5px 0 0; color: #b9d5ce; font-size: 9px; }
+.route-list { padding: 5px 20px; }
+.route-row { display: grid; grid-template-columns: 78px 14px minmax(0,1fr) 90px; gap: 10px; align-items: center; min-height: 82px; padding: 11px 0; border-bottom: 1px solid #ebe7df; }
+.route-row:last-child { border-bottom: 0; }
+.route-row time { color: var(--coral); font-size: 10px; font-weight: 900; text-align: right; }
+.route-line { position: relative; align-self: stretch; }
+.route-line::before { content: ""; position: absolute; left: 6px; top: -12px; bottom: -12px; width: 1px; background: #ccd8d3; }
+.route-line::after { content: ""; position: absolute; left: 2px; top: calc(50% - 4px); width: 9px; height: 9px; border: 2px solid white; border-radius: 50%; background: var(--green); box-shadow: 0 0 0 1px var(--green); }
+.route-row:first-child .route-line::before { top: 50%; }
+.route-row:last-child .route-line::before { bottom: 50%; }
+.route-main strong { display: block; font-size: 12px; }
+.route-main p { margin: 4px 0 0; color: #4f5d58; font-size: 10px; }
+.route-main small { display: block; margin-top: 4px; color: var(--muted); font-size: 9px; }
+.route-stats { text-align: right; }
+.route-stats span, .route-stats b { display: block; }
+.route-stats span { color: var(--muted); font-size: 9px; }
+.route-stats b { margin-top: 4px; color: var(--green); font-size: 11px; }
 .filter-bar { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin: 24px 0 18px; }
 .filter-chips { display: flex; flex-wrap: wrap; gap: 7px; }
 .filter-chip { padding: 8px 13px; border: 1px solid #d4d2ca; border-radius: 999px; color: var(--muted); background: rgba(255,255,255,.65); font-size: 11px; font-weight: 800; }
@@ -262,7 +295,7 @@ button { cursor: pointer; }
   .guide-hero { min-height: 360px; align-items: flex-start; flex-direction: column; padding: 46px 28px 35px; }
   .guide-import-button { flex-basis: auto; width: min(100%, 280px); }
   .guide-heading { grid-template-columns: 1fr; gap: 12px; }
-  .trip-notes-grid, .market-columns { grid-template-columns: 1fr; }
+  .trip-notes-grid, .market-columns, .transport-summary { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 620px) {
@@ -312,4 +345,11 @@ button { cursor: pointer; }
   .restaurant-card .place-index { width: 46px; height: 46px; font-size: 18px; }
   .visual-card { border-radius: 14px; }
   .visual-card > span { right: 8px; bottom: 8px; }
+  .transport-alert { align-items: flex-start; flex-direction: column; gap: 5px; }
+  .transport-day > header { grid-template-columns: 82px 1fr; padding: 16px; }
+  .route-list { padding: 3px 14px; }
+  .route-row { grid-template-columns: 55px 12px minmax(0,1fr); gap: 7px; }
+  .route-row time { font-size: 9px; }
+  .route-stats { grid-column: 3; display: flex; gap: 8px; margin-top: -5px; text-align: left; }
+  .route-stats b { margin-top: 0; }
 }
